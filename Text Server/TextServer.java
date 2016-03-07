@@ -59,7 +59,7 @@ public class TextServer {
             
             if(ct.id == id) {
                 list.remove(i);
-                event("Disconnected Client " + i + ": " + ct.username + " removed from list");
+                event("Disconnected Client " + (i + 1) + ": " + ct.username + " removed from list");
                 return;
             }
         }
@@ -140,11 +140,13 @@ public class TextServer {
                 username = (String) in.readObject();
                 
                 //Check to see if the username is already in use
-                for (int i = 0; i < list.size(); i++) {
-                    if (list.get(i).username.equals(this.username)) {
-                        writeMsg("Username already taken");
-                        username = username + id; //update the username to the username plus the unique id number
-                        writeMsg("Username is now: " + username);
+                synchronized(list) {
+                    for (int i = 0; i < list.size(); i++) {
+                        if (list.get(i).username.equals(this.username)) {
+                            writeMsg("Username already taken");
+                            username = username + id; //update the username to the username plus the unique id number
+                            writeMsg("Username is now: " + username);
+                        }
                     }
                 }
                 
@@ -257,7 +259,7 @@ public class TextServer {
             }
             
             try {
-                out.writeObject(msg);
+                out.writeObject(sdf.format(new Date())+ ":\n" + msg);
             } catch(IOException e) {
                 event("Error sending message to " + username);
             }

@@ -69,12 +69,10 @@ public class TextClient {
 
     //Display message to the console with the time stamp
     private static void display(String msg) {
-        String message = sdf.format(new Date()) + "\n" + msg;
-        
         if(editor == null) {
-            System.out.println(message);
+            System.out.println(msg);
         } else {
-            editor.display(message + "\n");
+            editor.display(msg + "\n");
         }
     }
 	
