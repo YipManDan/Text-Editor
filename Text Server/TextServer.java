@@ -276,9 +276,9 @@ public class TextServer {
             } else if (message.toLowerCase().startsWith("GET /".toLowerCase())) {
                 //Send the /directory/fileName to user
                 String fileName = message.substring(5);
-                writeMsg("Receiving " + fileName);
                 
                 if (new File(fileName).exists()) {
+                    writeMsg("Receiving " + fileName);
                     sendFile(fileName);
                 } else {
                     writeMsg("File Not Found on Server: " + fileName);
