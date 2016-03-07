@@ -64,7 +64,7 @@ public class TextEditor extends JFrame implements ActionListener {
         northPanel.add(tf);
         add(northPanel, BorderLayout.NORTH);
 
-        //CenterPanel which is text area
+        //CenterPanel, which is text area
         ta = new JTextArea(80, 80);
         JPanel centerPanel = new JPanel(new GridLayout(1,1));
         centerPanel.add(new JScrollPane(ta));
@@ -250,7 +250,6 @@ public class TextEditor extends JFrame implements ActionListener {
         //Info button
         if(o == info) {
             JOptionPane.showMessageDialog(this, "Username: " + this.username + "\n"
-                    + "Enter \"BROADCAST [message]\" to broadcast a message to all users\n"
                     + "All of your files will be deleted off the server when you log out");
             return;
         }
@@ -318,7 +317,7 @@ public class TextEditor extends JFrame implements ActionListener {
             this.setTitle(System.getProperty("user.dir").replace('\\', '/') + "/");
             
             tf.setText("");
-            label.setText("Hello " + this.username + ". Enter you commands below");
+            label.setText("Hello " + this.username + ". Broadcast Message:");
             connected = true;
 
             //Disable login button

@@ -285,12 +285,8 @@ public class TextServer {
                     event("File Not Found on Server: " + fileName);
                 }
                 
-            } else if (message.toLowerCase().startsWith("BROADCAST".toLowerCase())){
-                //Breadcast message to everyone
-                broadcast(message.substring(9), username);
-                
             } else {
-                writeMsg(" ¯\\_(ツ)_/¯");
+                broadcast(message, username);
             }
         }
         
