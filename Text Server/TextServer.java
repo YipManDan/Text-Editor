@@ -212,8 +212,8 @@ public class TextServer {
             }
             
             //Client has decided to log out
-            remove(id); //Remove client from the arrayList in the Server
-            close(); //Close down input/output streams and socket
+            remove(id);
+            close();
             deleteDirectory(new File(username));
         }
 
@@ -280,8 +280,8 @@ public class TextServer {
                 String fileName = message.substring(5);
                 
                 if (new File(fileName).exists()) {
-                    writeMsg("Receiving " + fileName);
                     sendFile(fileName);
+                    
                 } else {
                     writeMsg("File Not Found on Server: " + fileName);
                     event("File Not Found on Server: " + fileName);
@@ -293,7 +293,7 @@ public class TextServer {
         }
         
         //Receive File from Client
-        private synchronized void receiveFile(String fileName) {
+        private void receiveFile(String fileName) {
             try {
                 //Place file in /username/directory
                 File f = new File(username + "/" + fileName);
@@ -310,8 +310,10 @@ public class TextServer {
         }
         
         //Send file to Client
-        private synchronized void sendFile(String fileName) {
+        private void sendFile(String fileName) {
             try {
+                out.writeObject("Receiving " + fileName);
+                
                 File f = new File(fileName);
                 byte[] content = Files.readAllBytes(f.toPath());
                 out.writeObject(content);

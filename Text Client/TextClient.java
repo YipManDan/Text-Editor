@@ -19,7 +19,6 @@ public class TextClient {
     private String server, username;
     private int port;
     
-    private static SimpleDateFormat sdf;
     private static TextEditor editor;
 
     TextClient(String server, int port, String username, TextEditor editor) {
@@ -27,8 +26,6 @@ public class TextClient {
         this.port = port;
         this.username = username;
         this.editor = editor;
-        
-        sdf = new SimpleDateFormat("YYYY.MM.dd, hh:mm:ss a");
     }
     
     //Make a connection with the server
@@ -148,18 +145,15 @@ public class TextClient {
                     //If the server sends a "Receiving /directory/filename" message
                     if (msg.toLowerCase().startsWith("Receiving ".toLowerCase())) {
                         //Means that a file is coming
-                        //To get the file name, it is the substring after the last "/" in "/directory/filename"
                         int index = Math.max(msg.lastIndexOf("/"), msg.lastIndexOf("\\"));
                         String fileName = msg.substring(index + 1);
+                        
                         receiveFile(fileName);
+                        
                     } else if (msg.toLowerCase().startsWith("Username is now: ".toLowerCase())) {
                         username = msg.substring(17);
                         editor.username = username;
                         editor.label.setText("Hello " + username + ". Enter you commands below");
-                    }
-                    
-                    if(editor == null) {
-                        display("> ");
                     }
                     
                 } catch(IOException e) {
