@@ -145,7 +145,7 @@ public class TextServer {
                         if (list.get(i).username.equals(this.username)) {
                             writeMsg("Username already taken");
                             username = username + id; //update the username to the username plus the unique id number
-                            writeMsg("Username is now: " + username);
+                            out.writeObject("Username is now: " + username);
                         }
                     }
                 }
